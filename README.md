@@ -1,100 +1,135 @@
+<div align="center">
+
 # ReadmeForge
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](./LICENSE)
-[![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org)
-[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
-[![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
-[![Claude API](https://img.shields.io/badge/Claude_API-Sonnet-7B5EA7?style=flat-square)](https://docs.anthropic.com)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Gemini](https://img.shields.io/badge/Gemini-2.0_Flash-4285F4?logo=google&logoColor=white)](https://aistudio.google.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-22C55E)](LICENSE)
 
-A developer tool that accepts a GitHub repository URL, scores the existing README across four dimensions, and generates a polished production-ready replacement using the Claude API.
+GitHub README scorer and AI generator. Paste any public repo URL to score the existing README across four dimensions, then generate a production-ready replacement — powered by Gemini 2.0 Flash, free with no credit card required.
+
+</div>
 
 ---
 
-## Repository Structure
+## Features
+
+- **Instant Scoring** — Analyze any public GitHub repo README in seconds, no API key needed
+- **AI Generation** — Gemini 2.0 Flash generates a production-ready README using real repo context
+- **4-Dimension Scoring** — Completeness, Setup Instructions, Clarity, Badges
+- **Side-by-Side Diff** — Toggle between original and generated README
+- **One-Click Copy** — Copy the generated markdown instantly
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- GitHub token *(optional — raises API rate limit)*
+- Gemini API key *(free, no credit card — get one at [aistudio.google.com](https://aistudio.google.com))*
+
+### Installation
+
+```bash
+git clone https://github.com/prachi-satbhai0741/ReadmeForge.git
+cd ReadmeForge
+npm install
+cp .env.local.example .env.local
+```
+
+Edit `.env.local`:
+
+```env
+GEMINI_API_KEY=your-key-here
+GITHUB_TOKEN=ghp_...        # optional
+```
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+---
+
+## How It Works
+
+```
+User pastes GitHub URL
+       ↓
+GitHub REST API fetches repo metadata, README, and file tree
+       ↓
+Deterministic scorer produces a 4-dimension score (0–100)
+       ↓
+Gemini 2.0 Flash generates a new README using real repo context
+       ↓
+UI renders score breakdown, generated README, and diff toggle
+```
+
+### Scoring Dimensions
+
+| Dimension | Max | What's Checked |
+|---|---|---|
+| Completeness | 30 | Installation, Usage, Contributing, License, Description sections |
+| Setup Instructions | 30 | Code blocks, install command, run command |
+| Clarity | 20 | Word count, heading structure, length |
+| Badges | 20 | shields.io badge count |
+
+---
+
+## Project Structure
 
 ```
 ReadmeForge/
-├── frontend/      React + Vite SPA
-├── backend/       Express REST API
-├── LICENSE
-└── README.md
+├── src/
+│   └── app/
+│       ├── fonts/
+│       ├── favicon.ico
+│       ├── globals.css
+│       ├── layout.tsx
+│       └── page.tsx
+├── components/
+│   ├── DiffViewer.tsx
+│   ├── HeroSection.tsx
+│   ├── ReadmePreview.tsx
+│   ├── ScoreCard.tsx
+│   └── URLInput.tsx
+├── next.config.mjs
+├── tailwind.config.ts
+├── tsconfig.json
+└── package.json
 ```
-
----
-
-## Running Locally
-
-Both services run independently on separate ports.
-
-**Backend** (port 3000)
-
-```bash
-cd backend
-cp .env.example .env
-# fill in ANTHROPIC_API_KEY and optionally GITHUB_TOKEN
-npm install
-npm run dev
-```
-
-**Frontend** (port 5173)
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Open `http://localhost:5173`. The frontend proxies API requests to `http://localhost:3000`.
-
----
-
-## How it works
-
-1. User pastes a public GitHub repo URL.
-2. Backend fetches repo metadata, README content, and file tree via the GitHub REST API.
-3. A deterministic scorer evaluates the existing README across four dimensions — completeness, setup instructions, clarity, and badges — and returns a 0-100 score.
-4. The Claude API generates a new README using the actual repo content as context.
-5. Frontend renders the score breakdown and the generated README, with a one-click copy.
 
 ---
 
 ## Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
-| Frontend | React 18, Vite 5, CSS modules |
-| Backend | Node.js, Express 4 |
-| LLM | Anthropic Claude API (claude-sonnet-4) |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript 5 |
+| Styling | Tailwind CSS |
+| LLM | Google Gemini 2.0 Flash |
 | Data | GitHub REST API v3 |
-| Middleware | express-rate-limit, morgan |
 
 ---
 
 ## Contributing
 
-Contributions are welcome. To get started:
+```bash
+git checkout -b feat/your-feature
+# make changes
+git commit -m "feat: describe your change"
+git push origin feat/your-feature
+```
 
-1. Fork the repository.
-2. Create a feature branch: `git checkout -b feat/your-feature-name`
-3. Make your changes and commit: `git commit -m "feat: describe your change"`
-4. Push to your fork: `git push origin feat/your-feature-name`
-5. Open a Pull Request against the `main` branch.
-
-Please keep PRs focused — one feature or fix per PR. For larger changes, open an issue first to discuss the approach before writing code.
-
----
-
-## Author
-
-Prachi Satbhai — [GitHub](https://github.com/prachi-satbhai0741)
+Open a PR — one feature per PR.
 
 ---
 
 ## License
 
-MIT — see [LICENSE](./LICENSE) for details.
-
----
-
-If this project saved you time, consider giving it a star — it helps others find it.
-
+MIT — see [LICENSE](LICENSE) for details.
