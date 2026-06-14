@@ -15,21 +15,39 @@ export default function ReadmePreview({ markdown }: Props) {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 mt-8">
-      <div className="rounded-xl border border-slate-700/60 bg-slate-800/40 backdrop-blur">
-        {/* Toolbar */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-slate-700/60">
-          <span className="text-sm font-semibold text-white">Generated README</span>
+    <div className="relative z-10 w-full max-w-2xl mx-auto px-4 mt-6">
+      <div className="glass rounded-2xl overflow-hidden">
+
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-4"
+          style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="flex items-center gap-3">
+            {/* macOS dots */}
+            <div className="flex gap-1.5">
+              <span className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
+              <span className="w-3 h-3 rounded-full" style={{ background: '#febc2e' }} />
+              <span className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
+            </div>
+            <span className="mono text-xs" style={{ color: '#64748b' }}>README.md</span>
+          </div>
           <button
             onClick={handleCopy}
-            className="text-xs px-3 py-1.5 rounded-md bg-brand-600 hover:bg-brand-500 text-white font-medium transition"
+            className="px-4 py-1.5 rounded-lg mono text-xs font-medium transition-all"
+            style={{
+              background: copied
+                ? 'rgba(6,182,212,0.2)'
+                : 'rgba(124,58,237,0.2)',
+              color: copied ? '#06b6d4' : '#a855f7',
+              border: `1px solid ${copied ? '#06b6d422' : '#7c3aed33'}`,
+            }}
           >
-            {copied ? "Copied ✓" : "Copy Markdown"}
+            {copied ? "✓ Copied!" : "Copy Markdown"}
           </button>
         </div>
 
-        {/* Raw markdown */}
-        <pre className="p-4 text-sm font-mono text-slate-300 whitespace-pre-wrap overflow-x-auto max-h-[500px] overflow-y-auto">
+        {/* Content */}
+        <pre className="p-5 mono text-xs leading-relaxed whitespace-pre-wrap overflow-x-auto max-h-96 overflow-y-auto"
+          style={{ color: '#94a3b8' }}>
           {markdown}
         </pre>
       </div>
