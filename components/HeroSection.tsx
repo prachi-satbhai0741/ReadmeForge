@@ -41,27 +41,6 @@ export default function HeroSection() {
           </span>
         ))}
       </div>
-
-      {/* Score preview card — decorative */}
-      <div className="mt-12 float">
-        <div className="glass rounded-2xl px-6 py-4 inline-flex items-center gap-4"
-          style={{ animation: 'pulse-glow 3s ease-in-out infinite' }}>
-          <div className="text-left">
-            <p className="mono text-xs" style={{ color: '#64748b' }}>README Score</p>
-            <p className="text-3xl font-bold grad-text">87<span className="text-base font-normal" style={{color:'#64748b'}}>/100</span></p>
-          </div>
-          <div className="w-px h-10 bg-white/10" />
-          <div className="text-left">
-            <p className="mono text-xs" style={{ color: '#64748b' }}>Grade</p>
-            <p className="text-3xl font-bold" style={{ color: '#a855f7' }}>A</p>
-          </div>
-          <div className="w-px h-10 bg-white/10" />
-          <div className="text-left">
-            <p className="mono text-xs" style={{ color: '#64748b' }}>Status</p>
-            <p className="text-sm font-semibold" style={{ color: '#06b6d4' }}>Generated ✓</p>
-          </div>
-        </div>
-      </div>
     </section>
   );
 }
