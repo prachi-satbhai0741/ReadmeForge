@@ -43,8 +43,7 @@ export async function POST(req: NextRequest) {
     );
 
     const data = await response.json();
-    console.log("GitHub Models status:", response.status);
-    console.log("GitHub Models response:", JSON.stringify(data));
+ 
     const generatedReadme = data.choices?.[0]?.message?.content ?? "";
 
     return NextResponse.json({
